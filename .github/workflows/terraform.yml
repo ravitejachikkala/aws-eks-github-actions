@@ -1,4 +1,4 @@
-name: Create EKS Cluster
+name: Create EKS Cluster with github-actions
 
 on:
   push:
