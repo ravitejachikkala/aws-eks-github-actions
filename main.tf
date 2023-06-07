@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 resource "aws_eks_cluster" "my_cluster" {
-  name     = "my-github-eks-cluster"  # Replace with your desired cluster name
+  name     = "my-eks-cluster"  # Replace with your desired cluster name
   version  = "1.20"  # Replace with your desired EKS version
   role_arn = aws_iam_role.my_cluster_role.arn
   
@@ -13,7 +13,7 @@ resource "aws_eks_cluster" "my_cluster" {
 }
 
 resource "aws_iam_role" "my_cluster_role" {
-  name = "my-github-eks-cluster-role"  # Replace with your desired role name
+  name = "my-eks-cluster-role"  # Replace with your desired role name
   
   assume_role_policy = <<EOF
   {
