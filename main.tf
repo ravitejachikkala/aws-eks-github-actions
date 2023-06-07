@@ -4,7 +4,7 @@ provider "aws" {
 
 resource "aws_eks_cluster" "my_cluster" {
   name     = "my-eks-cluster"  # Replace with your desired cluster name
-  version  = "1.21"  # Replace with your desired EKS version
+  version  = "1.20"  # Replace with your desired EKS version
   role_arn = aws_iam_role.my_cluster_role.arn
   
   vpc_config {
