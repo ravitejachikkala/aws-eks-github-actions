@@ -1,37 +1,10 @@
-provider "aws" {
-  region = "ap-south-1"  # Replace with your desired AWS region
-}
-
-resource "aws_eks_cluster" "my_cluster" {
-  name     = "my-eks-cluster"  # Replace with your desired cluster name
-  version  = "1.20"  # Replace with your desired EKS version
-  role_arn = aws_iam_role.my_cluster_role.arn
-  
-  vpc_config {
-    subnet_ids = ["subnet-0c519e7a371ec2fd6", "subnet-0f7429a6beebb71fb"]  # Replace with your desired subnet IDs
-  }
-}
-
-resource "aws_iam_role" "my_cluster_role" {
-  name = "my-eks-cluster-role"  # Replace with your desired role name
-  
-  assume_role_policy = <<EOF
-  {
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "eks.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  }
-  EOF
-}
-
-resource "aws_iam_role_policy_attachment" "my_cluster_role_policy_attachment" {
-  role       = aws_iam_role.my_cluster_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
+module "eks_cluster" {
+  source             = "terraform-aws-modules/eks/aws"
+  cluster_name       = "my-eks-cluster"
+  cluster_version    = "1.21"  # Replace with a supported Kubernetes version
+  vpc_id             = "vpc-0d6d2c6204d72763b"
+  subnet_ids         = ["subnet-03ea374b93dfca015", "subnet-0f7429a6beebb71fb"]
+  create_eks_workers = false
+  map_roles          = []
+  worker_group_launch_template_config = []
 }
